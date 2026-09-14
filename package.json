@@ -1,0 +1,38 @@
+{
+  "name": "task-scheduler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "db.generate": "drizzle-kit generate",
+    "db.migrate": "drizzle-kit migrate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/akshaynarsanne/Task-Scheduler.git"
+  },
+  "keywords": [],
+  "author": "Akshay Narsanne",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/akshaynarsanne/Task-Scheduler/issues"
+  },
+  "homepage": "https://github.com/akshaynarsanne/Task-Scheduler#readme",
+  "devDependencies": {
+    "@types/node": "^26.5.1",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4.23.13",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "dotenv": "^17.4.2",
+    "drizzle-orm": "^0.45.2",
+    "fastify": "^5.12.4",
+    "postgres": "^3.4.9",
+    "redis": "^6.2.1"
+  }
+}
