@@ -4,17 +4,17 @@ import { userRoutes } from "./routes/user.routes.js";
 import { projectRoutes } from "./routes/project.routes.js";
 import { taskRoutes } from "./routes/task.routes.js";
 import { connectRedis, redis } from "./redis/client.js";
-
+import { rateLimitPlugin } from "./plugins/rate-limit.js";
 const app = Fastify({
     logger: true,
 });
 
+app.register(rateLimitPlugin);
 app.register(userRoutes);
 app.register(projectRoutes);
 app.register(taskRoutes);
 
 app.get('/health',async ()=>{
-    await connectRedis();
     const result = await db.execute(`SELECT 1`);
     return {
         status:"ok",
@@ -27,9 +27,6 @@ app.get('/health',async ()=>{
 const start = async () => {
     try {
         await connectRedis();
-        if (process.env.NODE_ENV !== "production") {
-            await redis.flushDb();
-        }
         await app.listen({
             port:3000,
             host:"0.0.0.0"
