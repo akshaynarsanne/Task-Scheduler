@@ -5,13 +5,17 @@ import { projectRoutes } from "./routes/project.routes.js";
 import { taskRoutes } from "./routes/task.routes.js";
 import { connectRedis, redis } from "./redis/client.js";
 import { rateLimitPlugin } from "./plugins/rate-limit.js";
+import { presenceRoutes } from "./routes/presence.routes.js";
 const app = Fastify({
     logger: true,
 });
+import { startPresenceCleanup } from "./workers/presence-cleanup.js";
+
 
 app.register(rateLimitPlugin);
 app.register(userRoutes);
 app.register(projectRoutes);
+app.register(presenceRoutes);
 app.register(taskRoutes);
 
 app.get('/health',async ()=>{
@@ -38,3 +42,4 @@ const start = async () => {
 };
 
 start();
+startPresenceCleanup();
